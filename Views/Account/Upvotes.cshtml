@@ -1,0 +1,25 @@
+@model List<ImgappDemo.Models.ImgVotes>;
+
+<body>
+    <div class="text-center container my-5 py-5">
+        @await Html.PartialAsync("_profileNav")
+
+        @if (Model == null || Model.Count() == 0)
+        {
+            <h1>Nothing here D:</h1>
+        }
+
+        <section>
+            @if (Model != null)
+                @foreach (var item in Model)
+                {
+                    @await Html.PartialAsync("_PostList", item.ImgPost)
+
+                }
+        </section>
+    </div>
+</body>
+
+@* Enable vote system *@
+@await Html.PartialAsync("_LoginModal", new User())
+<script src="~/js/vote.js"></script>

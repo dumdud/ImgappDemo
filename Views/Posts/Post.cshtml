@@ -1,0 +1,104 @@
+@model ImgappDemo.Models.ImgPost
+@using ImgappDemo.Utilities;
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="container my-5 py-5">
+    <div class="text-center">
+        <div class="col-md-6 card mx-auto">
+            <div class="card-body">
+                <h6 class="text-start fs-6">Posted by @Model.User.Name
+                    - @Helper.DateToString(Model.PostDate)</h6>
+                <h1>@Model.Title</h1>
+                <img class="img-fluid rounded " src="data:image;base64,@Convert.ToBase64String(Model.Image)" />
+            </div>
+        </div>
+    </div>
+    <br>
+    @* Comment section *@
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-12 col-lg-10 col-xl-8">
+            <h3>@Model.Comments.Count Comments</h3>
+            <div class="card">
+                @* comments *@
+                @if (Model.Comments.Count == 0)
+                {
+                    <p>Be the first to comment!</p>
+                }
+                @foreach (Comment comment in Model.Comments.Where(c => c.ParentCommentId == null))
+                {
+                    <section class="comment-section">
+                        <div class="card-body d-flex flex-start align-items-start">
+                            @if (comment.User.Avatar == null)
+                            {
+                                <img class="rounded-circle shadow-1-strong me-3" src="./defaultAvatars/testSloth.jpg"
+                            alt="avatar" width="40" height="40" />
+                            }
+                            else
+                            {
+                                <img class="rounded-circle shadow-1-strong me-3"
+                            src="data:image;base64,@Convert.ToBase64String(comment.User.Avatar)" alt="avatar" width="40"
+                            height="40" />
+                            }
+                            <div>
+                                <div>
+                                    <a class="">@comment.User.Name</a>
+                                    <a class="text-muted" target="_blank">
+                                        @Helper.DateToString(comment.PostDate)
+                                    </a>
+                                </div>
+                                <p class="font-helvetica">@comment.Message</p>
+                                @await Html.PartialAsync("_CommentFooter", comment)
+                            </div>
+                        </div>
+                        @await Html.PartialAsync("_ReplyBox", comment)
+                        @await Html.PartialAsync("_Replies", comment)
+                    </section>
+                    @* @await Html.PartialAsync("_ReplyBox", comment)
+                        @await Html.PartialAsync("_Replies", comment) *@
+
+                }
+                @* commentbox *@
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <form class="myform" action="/comment/?id=@System.Net.WebUtility.HtmlEncode(Model.PostId.ToString())"
+                    method="post">
+                        <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                            <div class="d-flex flex-start w-100">
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                src="data:image;base64,@User.FindFirst("Avatar")?.Value" alt="avatar" width="40"
+                                height="40" />
+                                <div class="form-outline w-100">
+                                    <input type="hidden" name="PID" value="@Model.PostId" />
+                                    <textarea class="form-control" id="textArea" rows="4" style="background: #fff;"
+                                    name="Text"></textarea>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <input type="submit" class="btn btn-primary btn-sm shadow-none"
+                                value="Post comment"></input>
+                                <input type="reset" class="btn btn-outline-primary btn-sm shadow-none"
+                                value="Cancel"></input>
+                            </div>
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                        <div class="d-flex flex-start w-100">
+                            <p><a asp-area="" asp-controller="Account" asp-action="Login">Login</a> to leave a comment.
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@* Enable vote system *@
+@await Html.PartialAsync("_LoginModal", new User())
+<script src="~/js/vote.js"></script>

@@ -1,0 +1,96 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+h1 a p {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue,
+    Arial, Helvetica, Geneva, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.vote-button {
+  font-family: StolenFont;
+  flex-direction: inherit;
+  justify-content: flex-start;
+}
+
+.voted.downvote {
+  fill: #006be6;
+}
+
+.hover.downvote {
+  stroke: #006be6;
+}
+
+.threadline {
+  border-right: 2px solid silver;
+  /* display: block; */
+  height: 100%;
+  width: 100%;
+}
+
+@font-face {
+  font-family: "StolenFont";
+  src: url(stolenfont.woff);
+}
+
+.icon-upvote::before {
+  content: "\f34c";
+}
+
+.icon-upvote_fill::before {
+  content: "\f34d";
+  color: red;
+}
+
+.icon-upvote:hover {
+  color: red;
+}
+.icon-downvote::before {
+  content: "\f197";
+}
+
+.icon-downvote_fill::before {
+  content: "\f198";
+  color: blue;
+}
+
+.icon-downvote:hover {
+  color: blue;
+}
+
+.icon {
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
+  color: silver;
+}
+
+.count {
+  color: rgb(153, 153, 153);
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}

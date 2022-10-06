@@ -1,0 +1,19 @@
+<ul class="nav justify-content-center">
+
+    <li class="nav-item">
+        <a class='nav-link @(ViewData["Current"] as string == "posts"? "disabled" : "")' asp-controller="Account"
+            asp-action="Profile">Posts</a>
+    </li>
+    <li class="nav-item">
+        <a class='nav-link @(ViewData["Current"] as string == "upvotes"? "disabled" : "")' asp-controller="Account"
+            asp-action="Upvotes">Upvotes</a>
+    </li>
+    <li class="nav-item">
+        <a class='nav-link @(ViewData["Current"] as string == "downvotes"? "disabled" : "")' asp-controller="Account"
+            asp-action="Downvotes">Downvotes</a>
+    </li>
+    <li class="nav-item">
+        <a class='nav-link @(ViewData["Current"] as string == "comments"? "disabled" : "")' asp-controller="Account"
+            asp-action="Comments">Comments</a>
+    </li>
+</ul>

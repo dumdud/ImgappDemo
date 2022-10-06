@@ -1,0 +1,32 @@
+@model ImgPost;
+@using ImgappDemo.Utilities;
+
+<div class="row d-flex justify-content-center ">
+    <div class="col-md-6 col-lg-6 col-xl-6 card card-hover" style="background-color: #fcfcfc;">
+        <div class="row card-body">
+            <div class="col-sm-1 col-xl-1 px-0 mx-0 text-justified-left">
+                <button id="ip-@Model.PostId" class='btn btn-outline rounded shadow-none vote-button'>
+                    <div class='icon @(Helper.GetPostVoteDir(Model, User, 1)? "icon-upvote_fill" : "icon-upvote")'>
+                    </div>
+                </button>
+                <div>
+                    @(Model.Votes?.Count > 0 ? Model.Votes.Sum(x => x.Vote): 0)
+                </div>
+                <button id="ip-@Model.PostId" class='btn btn-outline rounded shadow-none vote-button'>
+                    <div class='icon @(Helper.GetPostVoteDir(Model, User, -1)? "icon-downvote_fill" : "icon-downvote")'>
+                    </div>
+                </button>
+            </div>
+            <div class="col-sm-11 col-xl-11">
+                <h6 class="text-start fs-6"> Posted by @Html.DisplayFor(ModelModel => Model.User.Name)
+                    - <span data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="@Model.PostDate">@Helper.DateToString(Model.PostDate)</span></h6>
+                <a asp-controller="Posts" asp-action="Post" asp-route-id="@Model.PostId">
+                    <h1 class="text-start card-title">@Html.DisplayFor(ModelModel => Model.Title)</h1>
+                    <img class="img-fluid" src="data:image;base64,@Convert.ToBase64String(Model.Image)" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>

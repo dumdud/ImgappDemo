@@ -1,0 +1,28 @@
+@model ImgappDemo.Models.ImgPost
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["title"] = "Create Post";
+}
+
+
+<div class="container-fluid py-5 my-5">
+    <div class="row d-flex">
+        <div class="col-sm-12 col-lg-10 col-xl-8">
+            <h1>
+                TODO
+            </h1>
+            <form method="post" action="/Create" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="Title" class="form-label">Post Title</label>
+                    <input asp-for="Title" type="text" class="form-control" name="Title">
+                </div>
+                <div class="mb-3">
+                    <label for="Image" class="form-label">Image</label>
+                    <input asp-for="Image" type="file" class="form-control" name="Image" multiple="multiple">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

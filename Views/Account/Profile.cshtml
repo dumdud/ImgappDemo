@@ -1,0 +1,20 @@
+@model ImgappDemo.Models.User;
+
+<body>
+    <div class="text-center container my-5 py-5">
+        @await Html.PartialAsync("_profileNav")
+
+        @if (Model == null || Model.Posts.Count() == 0)
+        {
+            <h1>Nothing here D:</h1>
+        }
+
+        <section>
+            @if (Model != null)
+                @foreach (var item in Model.Posts)
+                {
+                    @await Html.PartialAsync("_PostList", item)
+                }
+        </section>
+    </div>
+</body>

@@ -1,0 +1,41 @@
+@model ImgappDemo.Models.Comment
+@using ImgappDemo.Utilities;
+
+
+<div class="d-flex align-items-start">
+    @if (User?.Identity == null || !User.Identity.IsAuthenticated)
+    {
+        <a class="" role="button" aria-expanded="true" data-bs-toggle="modal" data-bs-target="#LoginModal">
+            <p class="mb-0 fw-bold">Reply</p>
+        </a>
+    }
+    else
+    {
+        <a class="  " data-bs-toggle="collapse" href="#reply-box_@Model.CommentId" role="button" aria-expanded="true"
+        aria-controls="reply-box_@Model.CommentId">
+            <p class="mb-0 fw-bold">Reply</p>
+        </a>
+    }
+
+    <button id="cm-@Model.CommentId" class='btn shadow-none vote-button d-flex'>
+        <div class='icon @(Helper.GetPostVoteDir(Model, User, 1)? "icon-upvote_fill" : "icon-upvote")'>
+        </div>
+        <span class="count px-1">@(Model.Votes?.Where(x
+            => x.Vote ==
+            1).Count() > 0? Model.Votes?.Where(x => x.Vote ==
+            1).Count() :
+            "")</span>
+    </button>
+
+    <button id="cm-@Model.CommentId" class=' btn btn-outline rounded shadow-none vote-button d-flex'>
+        <div class='icon @(Helper.GetPostVoteDir(Model, User, -1)? "icon-downvote_fill" : "icon-downvote")'>
+        </div>
+        <span class="count px-1">@(Model.Votes?.Where(x
+            => x.Vote ==
+            -1).Count() >
+            0?
+            Model.Votes?.Where(x => x.Vote
+            == -1).Count() :
+            "")</span>
+    </button>
+</div>

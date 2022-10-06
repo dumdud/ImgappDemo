@@ -1,0 +1,38 @@
+@model ImgappDemo.Models.User
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+  string? error = TempData["Error"] as string;
+}
+
+@if (!string.IsNullOrEmpty(error))
+{
+  <h1>@error</h1>
+}
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="/login?ReturnUrl=@System.Net.WebUtility.HtmlEncode(ViewData["ReturnUrl"] as string)">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="UserName" class="form-label">User name</label>
+            <input asp-for="Name" type="text" class="form-control" name="Name">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" name="Password">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

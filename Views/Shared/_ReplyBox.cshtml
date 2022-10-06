@@ -1,0 +1,26 @@
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <div class="collapse col-md-8 card" id="reply-box_@Model.CommentId">
+        <form action=" /comment/?id=@System.Net.WebUtility.HtmlEncode(Model.Post.PostId.ToString())" method="post">
+            <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                <div class="d-flex flex-start w-100">
+                    <img class="rounded-circle shadow-1-strong me-3"
+                    src="data:image;base64,@User.FindFirst("Avatar")?.Value" alt="avatar" width="40" height="40" />
+                    <div class="form-outline w-100">
+                        <input type="hidden" name="PID" value="@Model.Post.PostId" />
+                        <input type="hidden" name="RID" value="@Model.CommentId" />
+                        <textarea class="form-control" id="textArea" rows="4" style="background: #fff;"
+                        name="Text"></textarea>
+                        @* <label class="form-label" for="textArea">Message</label> *@
+                        <br>
+                        <div class="text-end">
+                            <input type="submit" class="btn btn-primary btn-sm shadow-none" value="Post comment"></input>
+                            <input type="reset" class="btn btn-outline-primary btn-sm shadow-none" data-bs-toggle="collapse"
+                            href="#reply-box_@Model.CommentId" value="Cancel"></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+}

@@ -1,0 +1,34 @@
+@model ImgappDemo.Models.User
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    string? error = TempData["Error"] as string;
+}
+
+<div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-lg-10 col-xl-4">
+            @if (!string.IsNullOrEmpty(error))
+            {
+                <h1 class="danger">@error</h1>
+            }
+            <h3>Register</h3>
+            <div class="form-control">
+                <form method="post" asp-controller="account" asp-action="Register">
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" type="Email" class="form-control" name="Email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="UserName" class="form-label">User name</label>
+                        <input asp-for="Name" type="text" class="form-control" name="Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input asp-for="Password" type="password" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
