@@ -75,4 +75,15 @@ public class Helper
 
         return vote == dir;
     }
+
+    public static bool IsOwner(ImgPost post, ClaimsPrincipal? userClaim)
+    {
+        if (userClaim == null)
+        {
+            return false;
+        }
+
+        int userId = Convert.ToInt32(userClaim.FindFirst("UserId")?.Value);
+        return post.User.UserId == userId;
+    }
 }

@@ -32,12 +32,20 @@
                                 </div>
                             </button>
                         </div>
-                        <div class="col-sm-11 col-xl-11">
-                            <h6 class="text-start fs-6"> Posted by @Html.DisplayFor(modelItem => item.User.Name)
+                        <div class="col-sm-11 col-xl-11 ">
+                            <h6 class="text-start fs-6 d-flex"> Posted by @Html.DisplayFor(modelItem => item.User.Name)
                                 - <span data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="@item.PostDate">@Helper.DateToString(item.PostDate)</span></h6>
+                                title="@item.PostDate">@Helper.DateToString(item.PostDate)</span>
+                                @if (Helper.IsOwner(item, User))
+                                {
+                                    @await Html.PartialAsync("_ownershipHamburger")
+                                    ;
+
+                                }
+                            </h6>
                             <a asp-controller="Posts" asp-action="Post" asp-route-id="@item.PostId">
                                 <h1 class="text-start card-title">@Html.DisplayFor(modelItem => item.Title)</h1>
+
                                 <img class="img-fluid" src="data:image;base64,@Convert.ToBase64String(item.Image)" />
                             </a>
                         </div>
